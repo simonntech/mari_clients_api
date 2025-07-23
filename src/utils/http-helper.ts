@@ -6,6 +6,14 @@ export const ok = async (data: any): Promise<HttpResponse> => {
         body: data
     };
 };
+export const created = async (): Promise<HttpResponse> => {
+    return {
+        statusCode: 201,
+        body: {
+            message: "client created"
+        }
+    };
+};
 
 export const noContent = async (): Promise<HttpResponse> => {
     return {
@@ -13,3 +21,10 @@ export const noContent = async (): Promise<HttpResponse> => {
         body: null
     };
 };
+
+export const badRequest = async ():Promise<HttpResponse> => {
+    return {
+        statusCode: 400,
+        body: null,
+    }
+}
