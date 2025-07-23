@@ -115,3 +115,13 @@ export const findAllClients = async (): Promise<ClientsModel[]> => {
 export const insertClient = async (client: ClientsModel) => {
     CLIENTS_TEST.push(client);
 }
+
+export const findAndModifyClient = async (client_id: Number, client: ClientsModel): Promise<ClientsModel> => {
+    const clientIndex = CLIENTS_TEST.findIndex(client => client.client_id === client_id);
+
+    if ( clientIndex !== -1) {
+        CLIENTS_TEST[clientIndex] = client;
+    }
+
+    return CLIENTS_TEST[clientIndex];
+}

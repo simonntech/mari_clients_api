@@ -28,3 +28,16 @@ export const createClientService = async (client: ClientsModel) => {
 
     return response;
 }
+
+export const udpateClientService = async (id: Number, client: ClientsModel) => {
+    const data = await ClientsRepository.findAndModifyClient(id, client);
+    let response = null;
+
+    if (Object.keys(data).length === 0) {
+        response = await HttpResponse.badRequest();
+    } else {
+        response = await HttpResponse.ok(data);
+    }
+
+    return response;
+} 
