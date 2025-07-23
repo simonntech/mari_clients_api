@@ -16,6 +16,21 @@ export const getClientService = async () => {
     return response;
 };
 
+
+export const getClientByIdService = async (id: Number) => {
+    const data = await ClientsRepository.findClientById(id);
+    let response = null;
+
+    if (data) {
+        response = await HttpResponse.ok(data);
+    } else {
+        response = await HttpResponse.noContent();
+    }
+
+    return response;
+} 
+
+
 export const createClientService = async (client: ClientsModel) => {
     let response = null;
 
@@ -29,6 +44,7 @@ export const createClientService = async (client: ClientsModel) => {
     return response;
 }
 
+
 export const udpateClientService = async (id: Number, client: ClientsModel) => {
     const data = await ClientsRepository.findAndModifyClient(id, client);
     let response = null;
@@ -41,6 +57,7 @@ export const udpateClientService = async (id: Number, client: ClientsModel) => {
 
     return response;
 } 
+
 
 export const deleteClientService = async (id: Number) => {
     const isDeleted = await ClientsRepository.findAndDeleteClient(id);

@@ -8,6 +8,13 @@ export const getClients = async (req: Request, res: Response) => {
     res.status(httpResponse.statusCode).json(httpResponse.body);
 }
 
+export const getClientsById = async (req: Request, res: Response) => {
+    const id = parseInt(req.params.id);
+    const httpResponse = await Service.getClientByIdService(id);
+
+    res.status(httpResponse.statusCode).json(httpResponse.body);
+}
+
 export const postClient = async (req: Request, res: Response) => {
     const bodyValue = req.body;
     const httpResponse = await Service.createClientService(bodyValue);
@@ -19,7 +26,7 @@ export const postClient = async (req: Request, res: Response) => {
 
 export const updateClient = async (req: Request, res: Response) => {
     const id = parseInt(req.params.id);
-    const bodyValue:ClientsModel = req.body;
+    const bodyValue: ClientsModel = req.body;
     const httpResponse = await Service.udpateClientService(id, bodyValue);
 
     res.status(httpResponse.statusCode).json(httpResponse.body);

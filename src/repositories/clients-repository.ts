@@ -112,6 +112,10 @@ export const findAllClients = async (): Promise<ClientsModel[]> => {
     return CLIENTS_TEST;
 }
 
+export const findClientById = async (client_id: Number): Promise<ClientsModel | undefined> => {
+    return CLIENTS_TEST.find(client => client.client_id === client_id)
+} 
+
 export const insertClient = async (client: ClientsModel) => {
     CLIENTS_TEST.push(client);
 }
@@ -126,7 +130,7 @@ export const findAndModifyClient = async (client_id: Number, client: ClientsMode
     return CLIENTS_TEST[clientIndex];
 }
 
-export const findAndDeleteClient = async (client_id: Number) => {
+export const findAndDeleteClient = async (client_id: Number):Promise<Boolean> => {
     const index = CLIENTS_TEST.findIndex(client => client.client_id === client_id);
 
     if (index !== 1) {
