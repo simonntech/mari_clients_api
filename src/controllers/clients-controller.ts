@@ -23,4 +23,11 @@ export const updateClient = async (req: Request, res: Response) => {
     const httpResponse = await Service.udpateClientService(id, bodyValue);
 
     res.status(httpResponse.statusCode).json(httpResponse.body);
+};
+
+export const deleteClient = async (req: Request, res: Response) => {
+    const id = parseInt(req.params.id);
+    const httpResponse = await Service.deleteClientService(id);
+
+    res.status(httpResponse.statusCode).json(httpResponse.body)
 } 

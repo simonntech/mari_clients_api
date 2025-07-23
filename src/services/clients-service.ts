@@ -41,3 +41,16 @@ export const udpateClientService = async (id: Number, client: ClientsModel) => {
 
     return response;
 } 
+
+export const deleteClientService = async (id: Number) => {
+    const isDeleted = await ClientsRepository.findAndDeleteClient(id);
+    let response = null;
+
+    if(isDeleted) {
+        response = await HttpResponse.ok({message: "client deleted"});
+    } else {
+        response = await HttpResponse.badRequest();
+    }
+
+    return response;
+}

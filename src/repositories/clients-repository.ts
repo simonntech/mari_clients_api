@@ -125,3 +125,14 @@ export const findAndModifyClient = async (client_id: Number, client: ClientsMode
 
     return CLIENTS_TEST[clientIndex];
 }
+
+export const findAndDeleteClient = async (client_id: Number) => {
+    const index = CLIENTS_TEST.findIndex(client => client.client_id === client_id);
+
+    if (index !== 1) {
+        CLIENTS_TEST.splice(index, 1);
+        return true;
+    }
+
+    return false;
+}
