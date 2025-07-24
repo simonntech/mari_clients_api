@@ -1,142 +1,102 @@
 import { ClientsModel } from "../models/clients-model";
-import { Gender } from "../models/gender-model";
+import { POOL } from "../config/db";
 
-export const CLIENTS_TEST: ClientsModel[] = [
-    {   client_id: 1,
-        first_name: "Bruno",
-        last_name: "Simon",
-        gender: Gender.Male,
-        birth_date: new Date("1990-06-30"),
-        e_mail: "teste@teste.com",
-        phone: "19821212",
-        address_street: "Rua Teste",
-        address_number: "666",
-        address_neighborhood: "Bairro Caos",
-        address_city: "Caos City",
-        address_state: "SP",
-        zip_code: "1698741",
-        number_of_tattoos: 20,
-        first_client: false,
-        fav_style: "Old School",
-        allergies: "Fritura",
-        last_tattoo_date: new Date("2025-05-01"),
-        registration_date: new Date(),
-    },
-    {
-        client_id: 2,
-        first_name: "Marina",
-        last_name: "Oliveira",
-        gender: Gender.Female,
-        birth_date: new Date("1987-03-15"),
-        e_mail: "marina.oliveira@example.com",
-        phone: "11988776655",
-        address_street: "Av. Central",
-        address_number: "123",
-        address_neighborhood: "Centro",
-        address_city: "São Paulo",
-        address_state: "SP",
-        zip_code: "01010000",
-        number_of_tattoos: 5,
-        first_client: true,
-        fav_style: "Minimalista",
-        allergies: "Nenhuma",
-        last_tattoo_date: new Date("2025-07-10"),
-        registration_date: new Date(),
-    },
-    {
-        client_id: 3,
-        first_name: "Carlos",
-        last_name: "Pereira",
-        gender: Gender.Male,
-        birth_date: new Date("1995-11-02"),
-        e_mail: "carlos.pereira@example.com",
-        phone: "11999887766",
-        address_street: "Rua das Flores",
-        address_number: "456",
-        address_neighborhood: "Jardins",
-        address_city: "Campinas",
-        address_state: "SP",
-        zip_code: "13025000",
-        number_of_tattoos: 8,
-        first_client: false,
-        fav_style: "Realismo",
-        allergies: "Látex",
-        last_tattoo_date: new Date("2025-06-20"),
-        registration_date: new Date(),
-    },
-    {
-        client_id: 4,
-        first_name: "Letícia",
-        last_name: "Ferraz",
-        gender: Gender.Female,
-        birth_date: new Date("1992-09-22"),
-        e_mail: "leticia.ferraz@example.com",
-        phone: "11977665544",
-        address_street: "Rua do Sol",
-        address_number: "789",
-        address_neighborhood: "Parque Luz",
-        address_city: "Ribeirão Preto",
-        address_state: "SP",
-        zip_code: "14025000",
-        number_of_tattoos: 2,
-        first_client: true,
-        fav_style: "Fine Line",
-        allergies: "Antibiótico",
-        last_tattoo_date: new Date("2025-07-15"),
-        registration_date: new Date(),
-    },
-    {
-        client_id: 5,
-        first_name: "Diego",
-        last_name: "Souza",
-        gender: Gender.Male,
-        birth_date: new Date("1984-01-10"),
-        e_mail: "diego.souza@example.com",
-        phone: "11966554433",
-        address_street: "Av. das Palmeiras",
-        address_number: "321",
-        address_neighborhood: "Zona Sul",
-        address_city: "Santos",
-        address_state: "SP",
-        zip_code: "11030000",
-        number_of_tattoos: 12,
-        first_client: false,
-        fav_style: "Tribal",
-        allergies: "Tinta vermelha",
-        last_tattoo_date: new Date("2025-07-01"),
-        registration_date: new Date(),
-    }
-];
 
 export const findAllClients = async (): Promise<ClientsModel[]> => {
-    return CLIENTS_TEST;
+    const result = await POOL.query("SELECT * FROM clients ORDER BY client_id ASC");
+    return result.rows;
 }
 
 export const findClientById = async (client_id: Number): Promise<ClientsModel | undefined> => {
-    return CLIENTS_TEST.find(client => client.client_id === client_id)
-} 
+    const result = await POOL.query("SELECT * FROM clients WHERE client_id = $1", [client_id]);
+    return result.rows[0];
+}
 
 export const insertClient = async (client: ClientsModel) => {
-    CLIENTS_TEST.push(client);
+    const query = `
+        INSERT INTO clients (
+            first_name, last_name, gender, birth_date, e_mail, phone, address_street, address_number, address_neighborhood, address_city, address_state, zip_code, number_of_tattoos, first_client, fav_style, allergies, last_tattoo_date, registration_date    
+        ) VALUES (
+            $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18
+         )
+    `;
+
+    const values = [
+        client.first_name,
+        client.last_name,
+        client.gender,
+        client.birth_date,
+        client.e_mail,
+        client.phone,
+        client.address_street,
+        client.address_number,
+        client.address_neighborhood,
+        client.address_city,
+        client.address_state,
+        client.zip_code,
+        client.number_of_tattoos,
+        client.first_client,
+        client.fav_style,
+        client.allergies,
+        client.last_tattoo_date,
+        client.registration_date,
+    ];
+
+    await POOL.query(query, values);
 }
 
 export const findAndModifyClient = async (client_id: Number, client: ClientsModel): Promise<ClientsModel> => {
-    const clientIndex = CLIENTS_TEST.findIndex(client => client.client_id === client_id);
+    const query = `
+        UPDATE clients SET
+            first_name = $1,
+            last_name = $2,
+            gender = $3,
+            birth_date = $4,
+            e_mail = $5,
+            phone = $6,
+            address_street = $7,
+            address_number = $8,
+            address_neighborhood = $9,
+            address_city = $10,
+            address_state = $11,
+            zip_code = $12,
+            number_of_tattoos = $13,
+            first_client = $14,
+            fav_style = $15,
+            allergies = $16,
+            last_tattoo_date = $17,
+            registration_date = $18
+        WHERE client_id = $19
+        RETURNING *;
+    `;
 
-    if ( clientIndex !== -1) {
-        CLIENTS_TEST[clientIndex] = client;
-    }
+    const values = [
+        client.first_name,
+        client.last_name,
+        client.gender,
+        client.birth_date,
+        client.e_mail,
+        client.phone,
+        client.address_street,
+        client.address_number,
+        client.address_neighborhood,
+        client.address_city,
+        client.address_state,
+        client.zip_code,
+        client.number_of_tattoos,
+        client.first_client,
+        client.fav_style,
+        client.allergies,
+        client.last_tattoo_date,
+        client.registration_date,
+        client_id,
+    ];
 
-    return CLIENTS_TEST[clientIndex];
+    const result = await POOL.query(query, values);
+    return result.rows[0];
 }
 
-export const findAndDeleteClient = async (client_id: Number):Promise<Boolean> => {
-    const index = CLIENTS_TEST.findIndex(client => client.client_id === client_id);
-
-    if (index !== 1) {
-        CLIENTS_TEST.splice(index, 1);
-        return true;
-    }
-
-    return false;
+export const findAndDeleteClient = async (client_id: Number): Promise<Boolean> => {
+    const result = await POOL.query("DELETE FROM clients WHERE client_id = $1", [client_id]);
+    return (result.rowCount as number) > 0;
 }
