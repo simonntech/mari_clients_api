@@ -1,14 +1,18 @@
 import { Router } from "express";
 import * as ClientsController from "./controllers/clients-controller";
 import { POOL } from "./config/db";
+import { login } from "./controllers/auth-controller";
+import { authenticateToken } from "./middlewares/auth-middleware";
 
 export const ROUTER = Router();
 
-ROUTER.get("/clients", ClientsController.getClients);
-ROUTER.get("/clients/:id", ClientsController.getClientsById);
-ROUTER.post("/clients", ClientsController.postClient);
-ROUTER.patch("/clients/:id", ClientsController.updateClient);
-ROUTER.delete("/clients/:id", ClientsController.deleteClient);
+ROUTER.post("/login", login);
+
+ROUTER.get("/clients", authenticateToken, ClientsController.getClients);
+ROUTER.get("/clients/:id", authenticateToken, ClientsController.getClientsById);
+ROUTER.post("/clients", authenticateToken, ClientsController.postClient);
+ROUTER.patch("/clients/:id", authenticateToken, ClientsController.updateClient);
+ROUTER.delete("/clients/:id", authenticateToken, ClientsController.deleteClient);
 
 ROUTER.get("/teste", async (req, res) => {
     try {
