@@ -1,9 +1,11 @@
 # 📦 Mari Oliveira Ink Clients API
 
 API RESTful desenvolvida com Node.js, Express e PostgreSQL para o cadastro, gerenciamento e consulta de clientes. Criada com foco em boas práticas de estruturação, tipagem com TypeScript e organização modular de código.
+Será usada para gerenciar um Banco de Dados de clientes da minha esposa, que é tatuadora, e poderá ser utilizado para estudar os dados dos clientes como contatos, tatuagens favoritas, etc...
 
 ## 🔧 Funcionalidades
 
+- 🚫 Todas rotas estão protegidas com autenticação através de Token
 - ✅ Cadastro de novos clientes
 - 🔍 Consulta de todos os clientes
 - 🔎 Consulta de cliente por ID
