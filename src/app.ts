@@ -8,7 +8,13 @@ export default function createApp() {
     app.use(express.json());
     app.use("/api", ROUTER);
 
-    app.use(cors());
+    app.use(cors({
+        origin: [
+            "https://simonntech.github.io/mari_ink/", 
+            "http://localhost:5500"
+        ],
+        credentials: true
+    }));
 
     return app;
 }
