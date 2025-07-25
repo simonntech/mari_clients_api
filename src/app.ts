@@ -9,7 +9,7 @@ export default function createApp() {
     app.use("/api", ROUTER);
 
     app.use(cors({
-        origin: '*',
+        origin: 'https://simonntech.github.io',
         methods: ['GET', 'POST', 'PATCH', 'DELETE'],
         allowedHeaders: [ 'Content-Type', 'Authorization']
     }));
