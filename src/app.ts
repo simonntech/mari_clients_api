@@ -6,7 +6,7 @@ export default function createApp() {
     const app = express();
     
     app.use(cors({
-        origin: 'https://simonntech.github.io',
+        origin: ['https://simonntech.github.io', 'http://localhost:5500'],
         methods: ['GET', 'POST', 'PATCH', 'DELETE'],
         allowedHeaders: [ 'Content-Type', 'Authorization']
     }));
