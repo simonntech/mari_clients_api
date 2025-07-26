@@ -15,7 +15,7 @@ export const findClientById = async (client_id: Number): Promise<ClientsModel | 
 export const insertClient = async (client: ClientsModel) => {
     const query = `
         INSERT INTO clients (
-            first_name, last_name, gender, birth_date, e_mail, phone, address_street, address_number, address_neighborhood, address_city, address_state, zip_code, number_of_tattoos, first_client, fav_style, allergies, last_tattoo_date, registration_date    
+            first_name, last_name, gender, birth_date, social_media, phone, address_street, address_number, address_neighborhood, address_city, address_state, zip_code, number_of_tattoos, first_client, fav_style, allergies, last_tattoo_date, registration_date    
         ) VALUES (
             $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18
          )
@@ -26,7 +26,7 @@ export const insertClient = async (client: ClientsModel) => {
         client.last_name,
         client.gender,
         client.birth_date,
-        client.e_mail,
+        client.social_media,
         client.phone,
         client.address_street,
         client.address_number,
@@ -52,7 +52,7 @@ export const findAndModifyClient = async (client_id: Number, client: ClientsMode
             last_name = $2,
             gender = $3,
             birth_date = $4,
-            e_mail = $5,
+            social_media = $5,
             phone = $6,
             address_street = $7,
             address_number = $8,
@@ -75,7 +75,7 @@ export const findAndModifyClient = async (client_id: Number, client: ClientsMode
         client.last_name,
         client.gender,
         client.birth_date,
-        client.e_mail,
+        client.social_media,
         client.phone,
         client.address_street,
         client.address_number,

@@ -6,7 +6,7 @@ export interface ClientsModel {
     last_name: string;
     gender: Gender;
     birth_date: Date;
-    e_mail: string;
+    social_media: string;
     phone: string;
     address_street: string;
     address_number: string;
