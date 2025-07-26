@@ -1,4 +1,4 @@
-import { POOL } from "../config/db";
+import { POOL } from "../controllers/db";
 import { UserModel } from "../models/user-model";
 
 export const findUserByUsername = async (username: string): Promise<UserModel | null> => {

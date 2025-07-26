@@ -1,6 +1,5 @@
 import { ClientsModel } from "../models/clients-model";
-import { POOL } from "../config/db";
-
+import { POOL } from "../controllers/db";
 
 export const findAllClients = async (): Promise<ClientsModel[]> => {
     const result = await POOL.query("SELECT * FROM clients ORDER BY client_id ASC");

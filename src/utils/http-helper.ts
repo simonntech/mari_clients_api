@@ -10,7 +10,7 @@ export const created = async (): Promise<HttpResponse> => {
     return {
         statusCode: 201,
         body: {
-            message: "client created"
+            message: "Cliente criado"
         }
     };
 };
@@ -27,4 +27,13 @@ export const badRequest = async ():Promise<HttpResponse> => {
         statusCode: 400,
         body: null,
     }
-}
+};
+
+export const unauthorized = async ():Promise<HttpResponse> => {
+    return {
+        statusCode: 401,
+        body: {
+            message: "Acesso negado - Usuário ou senha incorretos!"
+        },
+    }
+};
