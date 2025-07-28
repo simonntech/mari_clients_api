@@ -14,9 +14,9 @@ export const findClientById = async (client_id: Number): Promise<ClientsModel | 
 export const insertClient = async (client: ClientsModel) => {
     const query = `
         INSERT INTO clients (
-            first_name, last_name, gender, birth_date, social_media, phone, address_street, address_number, address_neighborhood, address_city, address_state, zip_code, number_of_tattoos, first_client, fav_style, allergies, last_tattoo_date, registration_date    
+            first_name, last_name, gender, birth_date, social_media, phone, address_street, address_number, address_neighborhood, address_city, address_state, zip_code, number_of_tattoos, first_client, fav_style, allergies, last_tattoo_date
         ) VALUES (
-            $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18
+            $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17
          )
     `;
 
@@ -37,8 +37,7 @@ export const insertClient = async (client: ClientsModel) => {
         client.first_client,
         client.fav_style,
         client.allergies,
-        client.last_tattoo_date,
-        client.registration_date,
+        client.last_tattoo_date || null
     ];
 
     await POOL.query(query, values);
