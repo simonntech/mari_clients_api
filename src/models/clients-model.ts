@@ -15,7 +15,7 @@ export interface ClientsModel {
     address_state: string;
     zip_code: string;
     number_of_tattoos: number;
-    first_client: boolean;
+    is_first_client: boolean;
     fav_style: string;
     allergies: string;
     last_tattoo_date: Date;

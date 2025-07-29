@@ -2,7 +2,7 @@ import { ClientsModel } from "../models/clients-model";
 import { POOL } from "../config/db";
 
 export const findAllClients = async (): Promise<ClientsModel[]> => {
-    const result = await POOL.query("SELECT * FROM clients ORDER BY client_id ASC");
+    const result = await POOL.query("SELECT * FROM clients ORDER BY client_id DESC");
     return result.rows;
 }
 
@@ -14,7 +14,7 @@ export const findClientById = async (client_id: Number): Promise<ClientsModel | 
 export const insertClient = async (client: ClientsModel) => {
     const query = `
         INSERT INTO clients (
-            first_name, last_name, gender, birth_date, social_media, phone, address_street, address_number, address_neighborhood, address_city, address_state, zip_code, number_of_tattoos, first_client, fav_style, allergies, last_tattoo_date
+            first_name, last_name, gender, birth_date, social_media, phone, address_street, address_number, address_neighborhood, address_city, address_state, zip_code, number_of_tattoos, is_first_client, fav_style, allergies, last_tattoo_date
         ) VALUES (
             $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17
          )
@@ -34,7 +34,7 @@ export const insertClient = async (client: ClientsModel) => {
         client.address_state,
         client.zip_code,
         client.number_of_tattoos,
-        client.first_client,
+        client.is_first_client,
         client.fav_style,
         client.allergies,
         client.last_tattoo_date || null
@@ -59,7 +59,7 @@ export const findAndModifyClient = async (client_id: Number, client: ClientsMode
             address_state = $11,
             zip_code = $12,
             number_of_tattoos = $13,
-            first_client = $14,
+            is_first_client = $14,
             fav_style = $15,
             allergies = $16,
             last_tattoo_date = $17
@@ -81,7 +81,7 @@ export const findAndModifyClient = async (client_id: Number, client: ClientsMode
         client.address_state,
         client.zip_code,
         client.number_of_tattoos,
-        client.first_client,
+        client.is_first_client,
         client.fav_style,
         client.allergies,
         client.last_tattoo_date,
