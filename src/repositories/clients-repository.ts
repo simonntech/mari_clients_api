@@ -62,8 +62,7 @@ export const findAndModifyClient = async (client_id: Number, client: ClientsMode
             first_client = $14,
             fav_style = $15,
             allergies = $16,
-            last_tattoo_date = $17,
-            registration_date = $18
+            last_tattoo_date = $17
         WHERE client_id = $19
         RETURNING *;
     `;
@@ -86,7 +85,6 @@ export const findAndModifyClient = async (client_id: Number, client: ClientsMode
         client.fav_style,
         client.allergies,
         client.last_tattoo_date,
-        client.registration_date,
         client_id,
     ];
 
