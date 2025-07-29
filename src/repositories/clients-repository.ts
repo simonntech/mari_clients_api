@@ -85,7 +85,7 @@ export const findAndModifyClient = async (client_id: Number, client: ClientsMode
         client.fav_style,
         client.allergies,
         client.last_tattoo_date,
-        client_id,
+        client.client_id,
     ];
 
     const result = await POOL.query(query, values);
